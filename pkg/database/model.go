@@ -1,5 +1,9 @@
 package database
 
+const (
+	ErrorNotFound = "sql: no rows in result set"
+)
+
 type User struct {
 	ID              int64   `json:"id"`
 	Name            string  `db:"first_name" json:"name"`

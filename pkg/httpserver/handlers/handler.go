@@ -3,6 +3,8 @@ package handlers
 import (
 	"effectiveMobile/pkg/database"
 	"effectiveMobile/pkg/httpserver/handlers/user/adduser"
+	"effectiveMobile/pkg/httpserver/handlers/user/deleteuser"
+	"effectiveMobile/pkg/httpserver/handlers/user/updateuser"
 	"github.com/gin-gonic/gin"
 	"log/slog"
 )
@@ -26,7 +28,9 @@ func InitRoutes(r HandlerInitBody) *gin.Engine {
 		r.Urls.NationalityUrl,
 	}))
 
-	router.DELETE("/")
+	router.DELETE("/", deleteuser.DeleteUser(r.Log, r.DB))
+
+	router.PUT("/", updateuser.UpdateUser(r.Log, r.DB))
 
 	return router
 }
