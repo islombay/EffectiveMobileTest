@@ -9,6 +9,17 @@ import (
 	"net/http"
 )
 
+// UpdateUser godoc
+// @Summary UpdateUser
+// @Tag root
+// @Description Updates existing user
+// @ID update_user
+// @Accept json
+// @Produce json
+// @Param input body RequestUpdateUser true "user new info"
+// @Success 200 {object} database.User
+// @Failure 400,404,500 {object} responses.responsesStruct
+// @Router / [put]
 func UpdateUser(log *slog.Logger, db *database.Database) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var reqBody RequestUpdateUser

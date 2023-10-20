@@ -12,6 +12,13 @@ import (
 	"syscall"
 )
 
+// @title Effective Mobile
+// @version 1.0
+// @description Service that was created for test purposes
+
+// @host localhost:8080
+// @BasePath /
+
 func main() {
 	log := setLog()
 	config := configs.LoadConfigs(log)

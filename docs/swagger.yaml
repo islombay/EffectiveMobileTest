@@ -1,0 +1,219 @@
+basePath: /
+definitions:
+  adduser.RequestAddUser:
+    properties:
+      name:
+        type: string
+      patronymic:
+        type: string
+      surname:
+        type: string
+    required:
+    - name
+    - surname
+    type: object
+  database.User:
+    properties:
+      age:
+        type: integer
+      gender:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      nationality:
+        type: string
+      nationality_probability:
+        type: number
+      patronymic:
+        type: string
+      surname:
+        type: string
+    type: object
+  deleteuser.RequestDeleteUser:
+    properties:
+      id:
+        type: integer
+    type: object
+  responses.responsesStruct:
+    properties:
+      message:
+        type: string
+      statusCode:
+        type: integer
+    type: object
+  updateuser.RequestUpdateUser:
+    properties:
+      age:
+        type: integer
+      gender:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      nationality:
+        type: string
+      nationality_probability:
+        type: number
+      patronymic:
+        type: string
+      surname:
+        type: string
+    required:
+    - id
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Service that was created for test purposes
+  title: Effective Mobile
+  version: "1.0"
+paths:
+  /:
+    delete:
+      consumes:
+      - application/json
+      description: delete user by ID
+      operationId: delete_user
+      parameters:
+      - description: user id
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/deleteuser.RequestDeleteUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: boolean
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.responsesStruct'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/responses.responsesStruct'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/responses.responsesStruct'
+      summary: DeleteUser
+    get:
+      consumes:
+      - application/json
+      description: get users filtering
+      operationId: get_user
+      parameters:
+      - description: userid to find
+        in: query
+        name: userID
+        type: integer
+      - description: maxAge for filtering
+        in: query
+        name: maxAge
+        type: integer
+      - description: minAge for filtering
+        in: query
+        name: minAge
+        type: integer
+      - description: limit of objects
+        in: query
+        name: limit
+        type: integer
+      - description: users with specific nationality
+        in: query
+        name: nationality
+        type: string
+      - description: users with specific gender
+        in: query
+        name: gender
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/database.User'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.responsesStruct'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/responses.responsesStruct'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/responses.responsesStruct'
+      summary: GetUser
+    post:
+      consumes:
+      - application/json
+      description: Creates new user
+      operationId: add_user
+      parameters:
+      - description: user info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/adduser.RequestAddUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/database.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.responsesStruct'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/responses.responsesStruct'
+      summary: AddUser
+    put:
+      consumes:
+      - application/json
+      description: Updates existing user
+      operationId: update_user
+      parameters:
+      - description: user new info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/updateuser.RequestUpdateUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/database.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.responsesStruct'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/responses.responsesStruct'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/responses.responsesStruct'
+      summary: UpdateUser
+swagger: "2.0"

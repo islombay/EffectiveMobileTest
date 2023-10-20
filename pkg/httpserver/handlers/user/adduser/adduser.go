@@ -13,6 +13,17 @@ type AddUserBody struct {
 	AgeUrl, GenderUrl, NationalityUrl string
 }
 
+// AddUser godoc
+// @Summary AddUser
+// @Tag root
+// @Description Creates new user
+// @ID add_user
+// @Accept json
+// @Produce json
+// @Param input body RequestAddUser true "user info"
+// @Success 200 {object} database.User
+// @Failure 400,500 {object} responses.responsesStruct
+// @Router / [post]
 func AddUser(log *slog.Logger, db *database.Database, body AddUserBody) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var reqBody RequestAddUser

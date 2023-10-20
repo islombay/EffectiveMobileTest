@@ -11,13 +11,8 @@ func (db *Database) AddUser(name, surname, pat, gender, nat string, age int, nat
                    nationality_probability
 	) VALUES($1, $2, $3, $4, $5, $6, $7)`
 
-	tx, err := db.db.Begin()
+	_, err := db.db.Exec(sql, name, surname, pat, age, gender, nat, natProb)
 	if err != nil {
-		return User{}, err
-	}
-	_, err = tx.Exec(sql, name, surname, pat, age, gender, nat, natProb)
-	if err != nil {
-		tx.Rollback()
 		return User{}, err
 	}
 

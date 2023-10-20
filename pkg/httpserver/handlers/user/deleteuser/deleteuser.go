@@ -9,6 +9,17 @@ import (
 	"net/http"
 )
 
+// DeleteUser godoc
+// @Summary DeleteUser
+// @Tag root
+// @Description delete user by ID
+// @ID delete_user
+// @Accept json
+// @Produce json
+// @Param input body RequestDeleteUser true "user id"
+// @Success 200 {boolean} ok
+// @Failure 400,404,500 {object} responses.responsesStruct
+// @Router / [delete]
 func DeleteUser(log *slog.Logger, db *database.Database) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var reqBody RequestDeleteUser

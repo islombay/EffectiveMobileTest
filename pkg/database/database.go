@@ -29,29 +29,11 @@ func NewDatabase(body DatabaseLoad) (*Database, error) {
 		return &res, err
 	}
 
-	if err := InitTables(db); err != nil {
-		return &res, err
-	}
+	//if err := InitTables(db); err != nil {
+	//	return &res, err
+	//}
 
 	return &Database{
 		db: db,
 	}, nil
-}
-
-func InitTables(db *sqlx.DB) error {
-	createUsersTable := `CREATE TABLE IF NOT EXISTS users(
-    	id SERIAL PRIMARY KEY,
-    	first_name VARCHAR(200),
-    	last_name VARCHAR(200),
-    	patronymic VARCHAR(200),
-    	age INT,
-    	gender VARCHAR(10),
-    	nationality VARCHAR(10),
-    	nationality_probability DOUBLE PRECISION
-	)`
-	_, err := db.Exec(createUsersTable)
-	if err != nil {
-		return err
-	}
-	return nil
 }
